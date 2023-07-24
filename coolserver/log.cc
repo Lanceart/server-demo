@@ -6,7 +6,7 @@
 #include <string.h>
 #include <utility>
 namespace coolserver{
-    static const char* ToString(LogLevel::Level level){
+    const char* LogLevel::ToString(LogLevel::Level level){
         switch(level) {
 #define XX(name) \
     case LogLevel::name: \
