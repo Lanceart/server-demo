@@ -4,6 +4,7 @@
 #include <functional>
 #include <time.h>
 #include <string.h>
+#include <utility>
 namespace coolserver{
     static const char* ToString(LogLevel::Level level){
         switch(level) {

@@ -10,7 +10,7 @@
 #include <vector>
 #include <stdarg.h>
 #include <map>
-
+#include <utility>
 namespace coolserver{
 class Logger;
 class LogEvent {
