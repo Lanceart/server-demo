@@ -202,7 +202,8 @@ namespace coolserver{
 
     void LogFormatter::init(){
         //str,format,type
-        std::vector<std::tuple<std::string, int> > vec;
+        // std::vector<std::tuple<std::string, int> > vec;
+        std::vector<std::tuple<std::string, std::string, int> > vec;
         std::string nstr;
 
         for(size_t i=0;i<m_pattern.size();i++){
