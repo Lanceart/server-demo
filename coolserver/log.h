@@ -124,7 +124,7 @@ class FileLogAppender: public LogAppender{
         typedef std::shared_ptr<FileLogAppender> ptr;
         FileLogAppender(const std::string& filename);
         void log(Logger::ptr logger, LogLevel::Level level, LogEvent::ptr event) override;
-        void reopen();
+        bool reopen();
     private:
         std::string m_filename;
         std::ofstream m_filestream;

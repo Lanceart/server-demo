@@ -244,7 +244,7 @@ namespace coolserver{
 
             if(fmt_status == 0){
                 if(!nstr.empty()){
-                    vec.push_back(std::make_tuple(nstr,"",0));
+                    vec.push_back(std::make_tuple(nstr,std::string(),0));
                 }
 
                 str = m_pattern.substr(i+1,n-i-1);
