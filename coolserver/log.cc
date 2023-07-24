@@ -294,7 +294,7 @@ namespace coolserver{
             auto it = s_format_items.find(std::get<0>(i));
             if(it == s_format_items.end()) {
                 m_items.push_back(FormatItem::ptr(new StringFormatItem("<<error_format %" + std::get<0>(i) + ">>")));
-                m_error = true;
+                
             } else {
                 m_items.push_back(it->second(std::get<1>(i)));
             }
@@ -332,7 +332,7 @@ namespace coolserver{
     std::string LogFormatter::format(std::shared_ptr<Logger> logger,LogLevel::Level level, LogEvent::ptr event){
         std::stringstream ss;
         for(auto& i : m_items){
-            i->format(ss, std::shared_ptr<Logger> logger, level, event);
+            i->format(ss, logger, level, event);
         }
         return ss.str();
     }
