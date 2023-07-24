@@ -247,7 +247,7 @@ namespace coolserver{
 
             if(fmt_status == 0){
                 if(!nstr.empty()){
-                    vec.push_back(std::make_tuple(nstr,std::string(),0));
+                    vec.push_back(std::make_pair(nstr,std::string(),0));
                 }
 
                 str = m_pattern.substr(i+1,n-i-1);
@@ -266,7 +266,7 @@ namespace coolserver{
         }
 
         if(!nstr.empty()){
-            vec.push_back(std::make_tuple(nstr, "",0));
+            vec.push_back(std::make_pair(nstr, "",0));
         }
         
         static std::map<std::string, std::function<FormatItem::ptr(const std::string& str)> > s_format_items = {
