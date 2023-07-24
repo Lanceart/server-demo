@@ -251,7 +251,7 @@ namespace coolserver{
                 vec.push_back(std::make_tuple(str,fmt,1));
                 i=n;
             }else if(fmt_status == 1){
-                std::cout << "pattern parse error: " << m_pattern << " - " << m_pattern.substr(i) << str::endl;
+                std::cout << "pattern parse error: " << m_pattern << " - " << m_pattern.substr(i) << std::endl;
                 vec.push_back(std::make_tuple("<<pattern_error>>", fmt,0));
             }else if(fmt_status == 2){
                 if(!nstr.empty()){
@@ -263,7 +263,7 @@ namespace coolserver{
         }
 
         if(!nstr.empty()){
-            vec.push_back(std::make_tuple(nstr, std::string(),0));
+            vec.push_back(std::make_tuple(nstr, "",0));
         }
         
         static std::map<std::string, std::function<FormatItem::ptr(const std::string& str)> > s_format_items = {
