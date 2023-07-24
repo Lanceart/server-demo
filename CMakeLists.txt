@@ -8,7 +8,7 @@ set(LIB_SRC
     coolserver/log.cc
     )
 
-#add_library(coolserver SHARED ${LIB_SRC})
+add_library(coolserver SHARED ${LIB_SRC})
 
 add_executable(test tests/test.cc)
 add_dependencies(test coolserver)
