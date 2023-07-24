@@ -184,7 +184,7 @@ namespace coolserver{
         if(m_filestream){
             m_filestream.close();
         }
-        m_filename.open(m_filename);
+        m_filestream.open(m_filename);
         return !!m_filestream;
     }
 
