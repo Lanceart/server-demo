@@ -9,3 +9,10 @@ set(LIB_SRC
     )
 
 #add_library(coolserver SHARED ${LIB_SRC})
+
+add_executable(test tests/test.cc)
+add_dependencies(test coolserver)
+target_link_libraries(test coolserver)
+
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
