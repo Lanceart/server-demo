@@ -1,5 +1,7 @@
 #include "log.h"
 #include <map>
+#include <iostream>
+#include <functional>
 namespace coolserver{
     static const char* ToString(LogLevel::Level level){
         switch(level) {
@@ -20,8 +22,9 @@ namespace coolserver{
     return "UNKNOW";
     }
 
-        class MessageFormatItem : public LogFormatter::FormatItem{
+    class MessageFormatItem : public LogFormatter::FormatItem{
             public:
+                MessageFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << event-> getContent();
                 }
@@ -29,6 +32,7 @@ namespace coolserver{
 
     class LevelFormatItem : public LogFormatter::FormatItem{
             public:
+                LevelFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << LogLevel::ToString(level);
                 }
@@ -36,6 +40,7 @@ namespace coolserver{
     
     class ElapseFormatItem : public LogFormatter::FormatItem{
             public:
+                ElapseFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << event->getElapse();
                 }
@@ -43,13 +48,15 @@ namespace coolserver{
 
     class NameFormatItem : public LogFormatter::FormatItem{
             public:
+                NameFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << logger->getName();
                 }
     };
 
-    class ThreadFormatItem : public LogFormatter::FormatItem{
+    class ThreadIdFormatItem : public LogFormatter::FormatItem{
             public:
+                ThreadIdFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << event->getThreadId();
                 }
@@ -57,6 +64,7 @@ namespace coolserver{
 
     class FiberIdFormatItem : public LogFormatter::FormatItem{
             public:
+                FiberIdFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << event->getFiberId();
                 }
@@ -64,6 +72,7 @@ namespace coolserver{
 
     class DateTimeFormatItem : public LogFormatter::FormatItem{
         public:
+            
             DateTimeFormatItem(const std::string& format = "%Y:%m:%d %H:%M:%S")
                     :m_format(format){
 
@@ -77,6 +86,7 @@ namespace coolserver{
 
     class FilenameFormatItem : public LogFormatter::FormatItem{
             public:
+                FilenameFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << event->getFile();
                 }
@@ -84,6 +94,7 @@ namespace coolserver{
 
     class LineFormatItem : public LogFormatter::FormatItem{
             public:
+                LineFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << event->getLine();
                 }
@@ -91,6 +102,7 @@ namespace coolserver{
 
     class NewLineFormatItem : public LogFormatter::FormatItem{
             public:
+                NewLineFormatItem(const std::string& str = "") {}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << std::endl;
                 }
@@ -98,8 +110,9 @@ namespace coolserver{
 
     class StringFormatItem : public LogFormatter::FormatItem{
             public:
+                // StringFormatItem(const std::string& str = "") {}
                 StringFormatItem(const std::string& str)
-                        :FormatItem(str), m_string(str){}
+                        :m_string(str){}
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
                     os << m_string;
                 }
@@ -108,11 +121,14 @@ namespace coolserver{
     };
 
 
-    Logger(const std::string& name)
+    Logger::Logger(const std::string& name)
             :m_name(name){
-        
+        m_formatter.reset(new LogFormatter("%d [%p] %f %l %m %n"));
     }
     void Logger::addAppender(LogAppender::ptr appender){
+        if(!append->getFormatter()){
+            append->setFormatter(m_formatter);
+        }
         m_appenders.push_back(appender);
     }
     void Logger::delAppender(LogAppender::ptr appender){
@@ -127,26 +143,27 @@ namespace coolserver{
     }
     void Logger::log(LogLevel::Level level, LogEvent::ptr event){
         if(level >= m_level){
+            auto self = shared_from_this();
             for(auto& i : m_appenders){
-                i->log(level,event);
+                i->log(self, level,event);
             }
         }
     }
     void Logger::debug(LogEvent::ptr event){
-        debug(LogLevel::DEBUG, event);
+        log(LogLevel::DEBUG, event);
     }
     void Logger::warn(LogEvent::ptr event){
-        debug(LogLevel::WARN, event);
+        log(LogLevel::WARN, event);
     }
     void Logger::info(LogEvent::ptr event){
-        debug(LogLevel::INFO, event);
+        log(LogLevel::INFO, event);
     }
     void Logger::error(LogEvent::ptr event){
-        debug(LogLevel::ERROR, event)
+        log(LogLevel::ERROR, event)
     
     }
     void Logger::fatal(LogEvent::ptr event){
-        debug(LogLevel::FATAL, event)
+        log(LogLevel::FATAL, event)
     
     }
     FileLogAppender::FileLogAppender(const std::string& filename)
@@ -157,7 +174,7 @@ namespace coolserver{
 
     void StdoutLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event){
         if(level >= m_level){
-            std::cout << m_formatter.format(logger, level, event);
+            std::cout << m_formatter->format(logger, level, event);
         }
     }
 
@@ -171,7 +188,7 @@ namespace coolserver{
 
     void FileLogAppender::log(std::shared_ptr<Logger> logger,LogLevel::Level level, LogEvent::ptr event){
         if(level >= m_level){
-            m_filestream << m_formatter.format(logger, level, event);
+            m_filestream << m_formatter->format(logger, level, event);
         }
     }
 
@@ -227,7 +244,7 @@ namespace coolserver{
 
             if(fmt_status == 0){
                 if(!nstr.empty()){
-                    vec.push_back(std::make_pair(nstr,"",0));
+                    vec.push_back(std::make_tuple(nstr,"",0));
                 }
 
                 str = m_pattern.substr(i+1,n-i-1);
@@ -238,7 +255,7 @@ namespace coolserver{
                 vec.push_back(std::make_tuple("<<pattern_error>>", fmt,0));
             }else if(fmt_status == 2){
                 if(!nstr.empty()){
-                    vec.push_back(std::make_pair(nstr,"",0));
+                    vec.push_back(std::make_tuple(nstr,"",0));
                 }
                 vec.push_back(std::make_tuple(str,fmt,1));
                 i = n;
@@ -246,7 +263,7 @@ namespace coolserver{
         }
 
         if(!nstr.empty()){
-            vec.push_back(std::make_pair(nstr, "",0));
+            vec.push_back(std::make_tuple(nstr, std::string(),0));
         }
         
         static std::map<std::string, std::function<FormatItem::ptr(const std::string& str)> > s_format_items = {
@@ -262,9 +279,9 @@ namespace coolserver{
         XX(d, DateTimeFormatItem),          //d:时间
         XX(f, FilenameFormatItem),          //f:文件名
         XX(l, LineFormatItem),              //l:行号
-        XX(T, TabFormatItem),               //T:Tab
-        XX(F, FiberIdFormatItem),           //F:协程id
-        XX(N, ThreadNameFormatItem),        //N:线程名称
+        // XX(T, TabFormatItem),               //T:Tab
+        // XX(F, FiberIdFormatItem),           //F:协程id
+        // XX(N, ThreadNameFormatItem),        //N:线程名称
 #undef XX
     };
 
