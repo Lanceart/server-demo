@@ -12,7 +12,7 @@
 #include <map>
 
 namespace coolserver{
-
+class Logger;
 class LogEvent {
 public:
     typedef std::shared_ptr<LogEvent> ptr;
@@ -61,13 +61,14 @@ class LogFormatter{
         LogFormatter(const std::string& pattern);
 
         //t% %thread_id %m %n
-        std::string format(LogLevel::Level level, LogEvent::ptr event);
+        std::string format(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event);
     public:
         class FormatItem{
             public:
                 typedef std::shared_ptr<FormatItem> ptr;
+                FormatItem(const std::string& fmt = "");
                 virtual ~FormatItem(){}
-                virtual void format(std::ostream& os, LogLevel::Level level, LogEvent::ptr event) = 0;
+                virtual void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
         };
 
         void init();
@@ -80,7 +81,7 @@ class LogAppender{
     public:
         typedef std::shared_ptr<LogAppender> ptr;
         virtual ~LogAppender(){}
-        virtual void log(LogLevel::Level level, LogEvent::ptr event) = 0;
+        virtual void log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
         void setFormatter(LogFormatter::ptr val){m_formatter = val;}
         LogFormatter::ptr getFormatter() const (return m_formatter;)
     protected:
@@ -103,6 +104,7 @@ class Logger{
         LogLevel::Level getLevel() const {return m_level;}
         void setLevel(LogLevel::Level val){m_level = val;}
 
+        const std::string& getName() const {return m_name;}
     private:
         std::string m_name;
         LogLevel::Level m_level;
