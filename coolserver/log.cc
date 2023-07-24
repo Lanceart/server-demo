@@ -2,6 +2,8 @@
 #include <map>
 #include <iostream>
 #include <functional>
+#include <time.h>
+#include <string.h>
 namespace coolserver{
     static const char* ToString(LogLevel::Level level){
         switch(level) {
