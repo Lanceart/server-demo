@@ -75,7 +75,7 @@ class LogFormatter{
     private:
         std::string m_pattern;
         std::vector<FormatItem::ptr> m_items;
-}
+};
 
 class LogAppender{
     public:
