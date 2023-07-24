@@ -126,8 +126,8 @@ namespace coolserver{
         m_formatter.reset(new LogFormatter("%d [%p] %f %l %m %n"));
     }
     void Logger::addAppender(LogAppender::ptr appender){
-        if(!append->getFormatter()){
-            append->setFormatter(m_formatter);
+        if(!appender->getFormatter()){
+            appender->setFormatter(m_formatter);
         }
         m_appenders.push_back(appender);
     }
@@ -159,11 +159,11 @@ namespace coolserver{
         log(LogLevel::INFO, event);
     }
     void Logger::error(LogEvent::ptr event){
-        log(LogLevel::ERROR, event)
+        log(LogLevel::ERROR, event);
     
     }
     void Logger::fatal(LogEvent::ptr event){
-        log(LogLevel::FATAL, event)
+        log(LogLevel::FATAL, event);
     
     }
     FileLogAppender::FileLogAppender(const std::string& filename)
@@ -171,7 +171,7 @@ namespace coolserver{
 
             }
 
-
+    //point!
     void StdoutLogAppender::log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event){
         if(level >= m_level){
             std::cout << m_formatter->format(logger, level, event);
