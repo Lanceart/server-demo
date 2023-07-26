@@ -50,7 +50,7 @@
     if(logger->getLevel() <= level) \
         coolserver::LogEventWrap(coolserver::LogEvent::ptr(new coolserver::LogEvent(logger, level, \
                         __FILE__, __LINE__, 0, coolserver::GetThreadId(),\
-                coolserver::GetFiberId(), time(0), coolserver::Thread::GetName()))).getEvent()->format(fmt, __VA_ARGS__)
+                coolserver::GetFiberId(), time(0)))).getEvent()->format(fmt, __VA_ARGS__)
 
 /**
  * @brief 使用格式化方式将日志级别debug的日志写入到logger
