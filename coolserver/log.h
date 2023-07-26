@@ -138,7 +138,7 @@ class LogEventWrap{
         LogEventWrap(LogEvent::ptr e);
         ~LogEventWrap();
         std::stringstream& getSS();
-
+        LogEvent::ptr getEvent() const {return m_event;}
     private:
         LogEvent::ptr m_event;
 };
