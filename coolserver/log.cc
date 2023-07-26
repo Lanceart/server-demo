@@ -73,13 +73,6 @@ namespace coolserver{
                 }
     };
 
-    class ThreadIdFormatItem : public LogFormatter::FormatItem{
-            public:
-                ThreadIdFormatItem(const std::string& str = "") {}
-                void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
-                    os << event->getFiberId();
-                }
-    };
 
     class DateTimeFormatItem : public LogFormatter::FormatItem{
         public:
@@ -142,9 +135,9 @@ namespace coolserver{
             public:
                 // StringFormatItem(const std::string& str = "") {}
                 TabFormatItem(const std::string& str = ""){}
-                        :m_string(str){}
+                        
                 void format(std::ostream& os, std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) override{
-                    os << m_string;
+                    os << "\t";
                 }
             private:
                 std::string m_string;
