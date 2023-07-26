@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lance/Desktop/server-demo/coolserver/log.h
+string
+-
+stdint.h
+-
+memory
+-
+list
+-
+sstream
+-
+fstream
+-
+vector
+-
+stdarg.h
+-
+map
+-
+utility
+-
+
+/home/lance/Desktop/server-demo/tests/test.cc
+iostream
+-
+../coolserver/log.h
+/home/lance/Desktop/server-demo/coolserver/log.h
+

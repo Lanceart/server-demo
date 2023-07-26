@@ -1,0 +1,4 @@
+/home/lance/Desktop/server-demo/build/CMakeFiles/rebuild_cache.dir
+/home/lance/Desktop/server-demo/build/CMakeFiles/edit_cache.dir
+/home/lance/Desktop/server-demo/build/CMakeFiles/test.dir
+/home/lance/Desktop/server-demo/build/CMakeFiles/coolserver.dir
