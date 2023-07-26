@@ -32,7 +32,7 @@ namespace coolserver{
     LogEventWrap::~LogEventWrap(){
         m_event->getLogger()->log(m_event->getLevel(), m_event);
     }
-    LogEventWrap::std::stringstream& getSS(){
+    std::stringstream& LogEventWrap::getSS(){
         return m_event->getSS();
     }
 
