@@ -5,7 +5,7 @@
 #include<sys/types.h>
 #include<sys/syscall.h>
 
-name coolserver{
+namespace coolserver{
 
 pid_t GetThreadId();
 
