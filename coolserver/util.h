@@ -6,10 +6,10 @@
 #include<sys/types.h>
 #include<sys/syscall.h>
 #include<stdio.h>
-
+#include <stdint.h>
 namespace coolserver{
 
 pid_t GetThreadId();
-uint32_t getFiberId();
+uint32_t GetFiberId();
 }
 #endif
