@@ -43,6 +43,39 @@
  */
 #define COOLSERVER_LOG_FATAL(logger) COOLSERVER_LOG_LEVEL(logger, coolserver::LogLevel::FATAL)
 
+/**
+ * @brief 使用格式化方式将日志级别level的日志写入到logger
+ */
+#define COOLSERVER_LOG_FMT_LEVEL(logger, level, fmt, ...) \
+    if(logger->getLevel() <= level) \
+        coolserver::LogEventWrap(coolserver::LogEvent::ptr(new coolserver::LogEvent(logger, level, \
+                        __FILE__, __LINE__, 0, coolserver::GetThreadId(),\
+                coolserver::GetFiberId(), time(0), coolserver::Thread::GetName()))).getEvent()->format(fmt, __VA_ARGS__)
+
+/**
+ * @brief 使用格式化方式将日志级别debug的日志写入到logger
+ */
+#define COOLSERVER_LOG_FMT_DEBUG(logger, fmt, ...) COOLSERVER_LOG_FMT_LEVEL(logger, coolserver::LogLevel::DEBUG, fmt, __VA_ARGS__)
+
+/**
+ * @brief 使用格式化方式将日志级别info的日志写入到logger
+ */
+#define COOLSERVER_LOG_FMT_INFO(logger, fmt, ...)  COOLSERVER_LOG_FMT_LEVEL(logger, coolserver::LogLevel::INFO, fmt, __VA_ARGS__)
+
+/**
+ * @brief 使用格式化方式将日志级别warn的日志写入到logger
+ */
+#define COOLSERVER_LOG_FMT_WARN(logger, fmt, ...)  COOLSERVER_LOG_FMT_LEVEL(logger, coolserver::LogLevel::WARN, fmt, __VA_ARGS__)
+
+/**
+ * @brief 使用格式化方式将日志级别error的日志写入到logger
+ */
+#define COOLSERVER_LOG_FMT_ERROR(logger, fmt, ...) COOLSERVER_LOG_FMT_LEVEL(logger, coolserver::LogLevel::ERROR, fmt, __VA_ARGS__)
+
+/**
+ * @brief 使用格式化方式将日志级别fatal的日志写入到logger
+ */
+#define COOLSERVER_LOG_FMT_FATAL(logger, fmt, ...) COOLSERVER_LOG_FMT_LEVEL(logger, coolserver::LogLevel::FATAL, fmt, __VA_ARGS__)
 
 
 namespace coolserver{
@@ -79,7 +112,7 @@ public:
     
 
     std::stringstream& getSS() {return m_ss;}
-    
+    void format(const char* fmt, ...);
 private:
     /// filename
     const char* m_file = nullptr;
