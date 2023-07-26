@@ -236,7 +236,7 @@ namespace coolserver{
     }
     FileLogAppender::FileLogAppender(const std::string& filename)
             :m_filename(filename){
-
+                reopen();//here for log.txt
             }
 
     //point!
