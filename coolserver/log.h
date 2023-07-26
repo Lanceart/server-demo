@@ -113,6 +113,8 @@ public:
 
     std::stringstream& getSS() {return m_ss;}
     void format(const char* fmt, ...);
+    void format(const char* fmt, va_list al);
+    
 private:
     /// filename
     const char* m_file = nullptr;
