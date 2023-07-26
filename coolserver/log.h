@@ -16,7 +16,7 @@
     if(logger->getLevel() <= level) \
         coolserver::LogEventWrap(coolserver::LogEvent::ptr(new coolserver::LogEvent(logger, level, \
                         __FILE__, __LINE__, 0, coolserver::GetThreadId(),\
-                coolserver::GetFiberId(), time(0), coolserver::Thread::GetName()))).getSS()
+                coolserver::GetFiberId(), time(0) ))).getSS()
 
 /**
  * @brief 使用流式方式将日志级别debug的日志写入到logger
@@ -77,7 +77,7 @@ public:
     std::shared_ptr<Logger> getLogger() const {return m_logger;}
     LogLevel::Level getLevel() const {return m_level;}
     
-    
+
     std::stringstream& getSS() {return m_ss;}
     
 private:
