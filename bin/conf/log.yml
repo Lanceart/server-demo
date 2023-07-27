@@ -5,9 +5,3 @@ logs:
       - type: FileLogAppender
         path: log.txt
       - type: StdoutLogAppender
-  - name： system
-    level: debug
-    appender:
-      - type: FileLogAppender
-        path: log.txt
-      - type: StdoutLogAppender
