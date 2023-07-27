@@ -417,5 +417,5 @@ namespace coolserver{
         auto it = m_loggers.find(name);
         return it == m_loggers.end() ? m_root : it->second;
     }
-    void LoggerManger::init();
+    void LoggerManger::init(){};
 }
