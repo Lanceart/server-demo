@@ -5,8 +5,8 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function")
 
 include_directories(.)
-include_directories(/apps/coolserver/include)
-
+include_directories(/home/lance/Documents/setting/yaml-cpp-master/yaml-cpp-master/include)
+link_directories(/apps/coolserver/lib)
 
 set(LIB_SRC
     coolserver/log.cc
