@@ -407,4 +407,15 @@ namespace coolserver{
         }
         return ss.str();
     }
+
+    LoggerManger::LoggerManger(){
+        m_root.reset(new Logger);
+        m_root->addAppender(LogAppender::ptr(new StdoutLogAppender));
+    }
+
+    Logger::ptr LoggerManger::getLogger(const std::string& name){
+        auto it = m_loggers.find(name);
+        return it == m_loggers.end() ? m_root : it->second;
+    }
+    void LoggerManger::init();
 }

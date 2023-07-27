@@ -18,5 +18,9 @@ int main(int argc, char ** argv)
     COOLSERVER_LOG_ERROR(logger) << "opps a error";
 
     COOLSERVER_LOG_FMT_ERROR(logger, "test fmt error %s", "aa");
+
+    auto l = coolserver::LoggerMgr::GetInstance()->getLogger("xx");
+    COOLSERVER_LOG_INFO(l) << "xxx";
+
     return 0;
 }

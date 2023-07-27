@@ -11,6 +11,7 @@
 #include <stdarg.h>
 #include <map>
 #include <utility>
+#include "singleton.h"
 
 #define COOLSERVER_LOG_LEVEL(logger, level) \
     if(logger->getLevel() <= level) \
@@ -173,6 +174,8 @@ class LogAppender{
         virtual void log(std::shared_ptr<Logger> logger, LogLevel::Level level, LogEvent::ptr event) = 0;
         void setFormatter(LogFormatter::ptr val){m_formatter = val;}
         LogFormatter::ptr getFormatter() const {return m_formatter;}
+        LogLevel::Level getLevel() const {return m_level;}
+        void setLevel(LogLevel::Level level){m_level = level;}
     protected:
         LogLevel::Level m_level = LogLevel::DEBUG;//must be  init
         LogFormatter::ptr m_formatter;
@@ -218,6 +221,18 @@ class FileLogAppender: public LogAppender{
         std::string m_filename;
         std::ofstream m_filestream;
 };
+
+class LoggerManger{
+    public:
+        LoggerManger();
+        Logger::ptr getLogger(const std::string& name);
+        void init();
+    private:
+        std::map<std::string, Logger::ptr> m_loggers;
+        Logger::ptr m_root;
+};
+
+typedef coolserver::Singleton<LoggerManger> LoggerMgr;
 
 }
 
