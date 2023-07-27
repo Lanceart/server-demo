@@ -6,7 +6,7 @@
 #include <sstream>
 #include <boost/lexical_cast.hpp>
 
-#include "coolserver/log.h"
+#include "log.h"
 
 namespace coolserver{
 class ConfigVarBase{
