@@ -5,26 +5,26 @@ coolserver::ConfigVar<int>::ptr g_int_value_config =
     coolserver::Config::Lookup("system.port", (int)8080, "system port");
 
 void print_yaml(const YAML::Node& node, int level) {
-    if(node.IsScalar()) {
-        COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
-            << node.Scalar() << " - " << node.Type() << " - " << level;
-    } else if(node.IsNull()) {
-        COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
-            << "NULL - " << node.Type() << " - " << level;
-    } else if(node.IsMap()) {
-        for(auto it = node.begin();
-                it != node.end(); ++it) {
-            COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
-                    << it->first << " - " << it->second.Type() << " - " << level;
-            print_yaml(it->second, level + 1);
-        }
-    } else if(node.IsSequence()) {
-        for(size_t i = 0; i < node.size(); ++i) {
-            COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
-                << i << " - " << node[i].Type() << " - " << level;
-            print_yaml(node[i], level + 1);
-        }
-    }
+    // if(node.IsScalar()) {
+    //     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
+    //         << node.Scalar() << " - " << node.Type() << " - " << level;
+    // } else if(node.IsNull()) {
+    //     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
+    //         << "NULL - " << node.Type() << " - " << level;
+    // } else if(node.IsMap()) {
+    //     for(auto it = node.begin();
+    //             it != node.end(); ++it) {
+    //         COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
+    //                 << it->first << " - " << it->second.Type() << " - " << level;
+    //         print_yaml(it->second, level + 1);
+    //     }
+    // } else if(node.IsSequence()) {
+    //     for(size_t i = 0; i < node.size(); ++i) {
+    //         COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
+    //             << i << " - " << node[i].Type() << " - " << level;
+    //         print_yaml(node[i], level + 1);
+    //     }
+    // }
 }
 
 void test_yaml(){
