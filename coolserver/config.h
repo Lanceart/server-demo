@@ -104,6 +104,8 @@ class Config{
     private:
         static ConfigVarMap s_datas;
 
+    };
 }
+
 
 #endif
