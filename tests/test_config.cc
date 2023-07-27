@@ -1,5 +1,5 @@
-#include "coolserver/config.h"
-#include "coolserver/log.h"
+#include "../coolserver/config.h"
+#include "../coolserver/log.h"
 
 coolserver::ConfigVar<int>::ptr g_int_value_config =
     coolserver::Config::Lookup("system.port", (int)8080, "system port");
