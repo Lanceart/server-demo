@@ -11,6 +11,8 @@
 #include <stdarg.h>
 #include <map>
 #include <utility>
+
+#include "util.h"
 #include "singleton.h"
 
 #define COOLSERVER_LOG_LEVEL(logger, level) \
@@ -78,6 +80,7 @@
  */
 #define COOLSERVER_LOG_FMT_FATAL(logger, fmt, ...) COOLSERVER_LOG_FMT_LEVEL(logger, coolserver::LogLevel::FATAL, fmt, __VA_ARGS__)
 
+#define COOLSERVER_LOG_ROOT() coolserver::LoggerMgr::GetInstance()->getRoot()
 
 namespace coolserver{
 class Logger;
@@ -227,6 +230,7 @@ class LoggerManger{
         LoggerManger();
         Logger::ptr getLogger(const std::string& name);
         void init();
+        Logger::ptr getRoot() const { return m_root;}
     private:
         std::map<std::string, Logger::ptr> m_loggers;
         Logger::ptr m_root;

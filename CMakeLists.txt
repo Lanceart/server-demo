@@ -16,5 +16,9 @@ add_executable(test tests/test.cc)
 add_dependencies(test coolserver)
 target_link_libraries(test coolserver)
 
+add_executable(test_config tests/test_config.cc)
+add_dependencies(test_config coolserver)
+target_link_libraries(test_config coolserver)
+
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
