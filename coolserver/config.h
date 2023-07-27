@@ -54,7 +54,7 @@ class ConfigVar : public ConfigVarBase{
         
         bool fromString(const std::string& val) override{
             try{
-                m_val = boost:lexical_cast<T>(val);
+                m_val = boost::lexical_cast<T>(val);
             }catch(std::exception& e){
                 COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT()) <<"ConfigVar::fromString exception"
                     << e.what() << "convert: string to " <<typeid(m_val).name();
@@ -82,7 +82,7 @@ class Config{
             }
 
             if(name.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ._0123456789")
-                    != std::string::nops){
+                    != std::string::npos){
                 COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT()) << "Lookup name invalid" << name;
                 throw std::invalid_argument(name);
             }   
