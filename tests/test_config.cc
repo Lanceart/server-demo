@@ -44,6 +44,6 @@ int main(int argc, char** argv){
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << g_int_value_config -> toString();
 
     // test_yaml();
-    
+    test_config();
     return 0;
 }
