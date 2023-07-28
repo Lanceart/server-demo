@@ -23,7 +23,7 @@ add_library(coolserver SHARED ${LIB_SRC})
 
 add_executable(test tests/test.cc)
 add_dependencies(test coolserver)
-target_link_libraries(test coolserver)
+target_link_libraries(test coolserver ${YAMLCPP})
 
 add_executable(test_config tests/test_config.cc)
 add_dependencies(test_config coolserver)
