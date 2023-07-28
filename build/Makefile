@@ -114,6 +114,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_config
+
+# Build rule for target.
+test_config: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_config
+.PHONY : test_config
+
+# fast build rule for target.
+test_config/fast:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/build
+.PHONY : test_config/fast
+
+#=============================================================================
 # Target rules for targets named test
 
 # Build rule for target.
@@ -138,6 +151,33 @@ coolserver: cmake_check_build_system
 coolserver/fast:
 	$(MAKE) -f CMakeFiles/coolserver.dir/build.make CMakeFiles/coolserver.dir/build
 .PHONY : coolserver/fast
+
+coolserver/config.o: coolserver/config.cc.o
+
+.PHONY : coolserver/config.o
+
+# target to build an object file
+coolserver/config.cc.o:
+	$(MAKE) -f CMakeFiles/coolserver.dir/build.make CMakeFiles/coolserver.dir/coolserver/config.cc.o
+.PHONY : coolserver/config.cc.o
+
+coolserver/config.i: coolserver/config.cc.i
+
+.PHONY : coolserver/config.i
+
+# target to preprocess a source file
+coolserver/config.cc.i:
+	$(MAKE) -f CMakeFiles/coolserver.dir/build.make CMakeFiles/coolserver.dir/coolserver/config.cc.i
+.PHONY : coolserver/config.cc.i
+
+coolserver/config.s: coolserver/config.cc.s
+
+.PHONY : coolserver/config.s
+
+# target to generate assembly for a file
+coolserver/config.cc.s:
+	$(MAKE) -f CMakeFiles/coolserver.dir/build.make CMakeFiles/coolserver.dir/coolserver/config.cc.s
+.PHONY : coolserver/config.cc.s
 
 coolserver/log.o: coolserver/log.cc.o
 
@@ -166,6 +206,33 @@ coolserver/log.cc.s:
 	$(MAKE) -f CMakeFiles/coolserver.dir/build.make CMakeFiles/coolserver.dir/coolserver/log.cc.s
 .PHONY : coolserver/log.cc.s
 
+coolserver/util.o: coolserver/util.cc.o
+
+.PHONY : coolserver/util.o
+
+# target to build an object file
+coolserver/util.cc.o:
+	$(MAKE) -f CMakeFiles/coolserver.dir/build.make CMakeFiles/coolserver.dir/coolserver/util.cc.o
+.PHONY : coolserver/util.cc.o
+
+coolserver/util.i: coolserver/util.cc.i
+
+.PHONY : coolserver/util.i
+
+# target to preprocess a source file
+coolserver/util.cc.i:
+	$(MAKE) -f CMakeFiles/coolserver.dir/build.make CMakeFiles/coolserver.dir/coolserver/util.cc.i
+.PHONY : coolserver/util.cc.i
+
+coolserver/util.s: coolserver/util.cc.s
+
+.PHONY : coolserver/util.s
+
+# target to generate assembly for a file
+coolserver/util.cc.s:
+	$(MAKE) -f CMakeFiles/coolserver.dir/build.make CMakeFiles/coolserver.dir/coolserver/util.cc.s
+.PHONY : coolserver/util.cc.s
+
 tests/test.o: tests/test.cc.o
 
 .PHONY : tests/test.o
@@ -193,6 +260,33 @@ tests/test.cc.s:
 	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/tests/test.cc.s
 .PHONY : tests/test.cc.s
 
+tests/test_config.o: tests/test_config.cc.o
+
+.PHONY : tests/test_config.o
+
+# target to build an object file
+tests/test_config.cc.o:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.o
+.PHONY : tests/test_config.cc.o
+
+tests/test_config.i: tests/test_config.cc.i
+
+.PHONY : tests/test_config.i
+
+# target to preprocess a source file
+tests/test_config.cc.i:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.i
+.PHONY : tests/test_config.cc.i
+
+tests/test_config.s: tests/test_config.cc.s
+
+.PHONY : tests/test_config.s
+
+# target to generate assembly for a file
+tests/test_config.cc.s:
+	$(MAKE) -f CMakeFiles/test_config.dir/build.make CMakeFiles/test_config.dir/tests/test_config.cc.s
+.PHONY : tests/test_config.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -200,15 +294,25 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... test_config"
 	@echo "... edit_cache"
 	@echo "... test"
 	@echo "... coolserver"
+	@echo "... coolserver/config.o"
+	@echo "... coolserver/config.i"
+	@echo "... coolserver/config.s"
 	@echo "... coolserver/log.o"
 	@echo "... coolserver/log.i"
 	@echo "... coolserver/log.s"
+	@echo "... coolserver/util.o"
+	@echo "... coolserver/util.i"
+	@echo "... coolserver/util.s"
 	@echo "... tests/test.o"
 	@echo "... tests/test.i"
 	@echo "... tests/test.s"
+	@echo "... tests/test_config.o"
+	@echo "... tests/test_config.i"
+	@echo "... tests/test_config.s"
 .PHONY : help
 
 

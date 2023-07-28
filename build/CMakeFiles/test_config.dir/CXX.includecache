@@ -6,6 +6,18 @@
 
 #IncludeRegexTransform: 
 
+/home/lance/Desktop/server-demo/coolserver/config.h
+memory
+-
+string
+-
+sstream
+-
+boost/lexical_cast.hpp
+-
+log.h
+/home/lance/Desktop/server-demo/coolserver/log.h
+
 /home/lance/Desktop/server-demo/coolserver/log.h
 string
 -
@@ -48,13 +60,11 @@ stdio.h
 stdint.h
 -
 
-/home/lance/Desktop/server-demo/tests/test.cc
-iostream
--
-thread
--
+/home/lance/Desktop/server-demo/tests/test_config.cc
+../coolserver/config.h
+/home/lance/Desktop/server-demo/coolserver/config.h
 ../coolserver/log.h
 /home/lance/Desktop/server-demo/coolserver/log.h
-../coolserver/util.h
-/home/lance/Desktop/server-demo/coolserver/util.h
+yaml-cpp/yaml.h
+-
 

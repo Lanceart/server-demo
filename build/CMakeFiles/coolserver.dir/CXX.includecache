@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/home/lance/Desktop/server-demo/coolserver/config.cc
+config.h
+/home/lance/Desktop/server-demo/coolserver/config.h
+
+/home/lance/Desktop/server-demo/coolserver/config.h
+memory
+-
+string
+-
+sstream
+-
+boost/lexical_cast.hpp
+-
+log.h
+/home/lance/Desktop/server-demo/coolserver/log.h
+
 /home/lance/Desktop/server-demo/coolserver/log.cc
 log.h
 /home/lance/Desktop/server-demo/coolserver/log.h
@@ -42,5 +58,29 @@ stdarg.h
 map
 -
 utility
+-
+util.h
+/home/lance/Desktop/server-demo/coolserver/util.h
+singleton.h
+/home/lance/Desktop/server-demo/coolserver/singleton.h
+
+/home/lance/Desktop/server-demo/coolserver/singleton.h
+
+/home/lance/Desktop/server-demo/coolserver/util.cc
+util.h
+/home/lance/Desktop/server-demo/coolserver/util.h
+
+/home/lance/Desktop/server-demo/coolserver/util.h
+unistd.h
+-
+pthread.h
+-
+sys/types.h
+-
+sys/syscall.h
+-
+stdio.h
+-
+stdint.h
 -
 
