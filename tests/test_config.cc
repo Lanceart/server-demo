@@ -37,7 +37,7 @@ void test_config() {
     YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
     coolserver::Config::LoadFromYaml(root);
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "before: " << g_int_value_config->getValue();
-    COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "before: " << g_float_value_config->toString();
+    COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "before: " << g_int_value_config->toString();
 }
 int main(int argc, char** argv){
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << g_int_value_config -> getValue();
