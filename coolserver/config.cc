@@ -1,7 +1,7 @@
 #include "config.h"
 namespace coolserver{
     Config::ConfigVarMap Config::s_datas;
-    ConfigVarBase::ptr ConfigVarBase LookupBase(const std::string& name){
+    ConfigVarBase::ptr Config::LookupBase(const std::string& name){
         auto it = s_datas.find(name);
         return it == s_datas.end() ? nullptr : it->second;
     }
