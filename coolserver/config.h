@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 #include <boost/lexical_cast.hpp>
-
+#include <yaml-cpp/yaml.h>
 #include "log.h"
 
 namespace coolserver{
@@ -15,7 +15,7 @@ class ConfigVarBase{
         ConfigVarBase(const std::string& name, const std::string& description ="")
                 :m_name(name)
                 ,m_description(description){
-            
+            std::transform(m_name.begin(), m_name.end(), m_name.begin(), ::tolower);
         }
         virtual ~ConfigVarBase(){}
         const std::string& getName() const {return m_name;}
@@ -100,7 +100,8 @@ class Config{
             }
             return std::dynamic_pointer_cast<ConfigVar<T> >(it->second);
         }
-
+        static void LoadFromYaml(const YAML::Node& root);
+        static ConfigVarBase::ptr ConfigVarBase LookupBase(const std::string& name);
     private:
         static ConfigVarMap s_datas;
 

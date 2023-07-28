@@ -8,6 +8,11 @@ include_directories(.)
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
+find_library(YAMLCPP yaml-cpp)
+message("***", ${YAMLCPP})
+
+
+
 set(LIB_SRC
     coolserver/log.cc
     coolserver/util.cc
