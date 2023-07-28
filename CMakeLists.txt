@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 2.8)
 project(coolserver)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -lyaml-cpp")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -g -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function")
 
 include_directories(.)
-include_directories(/home/lance/Documents/setting/yaml-cpp-master/yaml-cpp-master/include)
-link_directories(/apps/coolserver/lib)
+include_directories(/usr/local/include)
+link_directories(/usr/local/lib)
 
 set(LIB_SRC
     coolserver/log.cc
