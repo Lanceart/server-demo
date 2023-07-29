@@ -115,6 +115,38 @@ class LexicalCast<std::list<T>, std::string>{
         }
 };
 
+
+template<class T>
+class LexicalCast<std::string, std::set<T> >{
+    public:
+        std::set<T> operator()(const std::string& v){
+            YAML::Node node = YAML::Load(v);
+            typename std::set<T> vec;
+            //模板在实例化之前并不知道std::set<T>是什么东西，使用typename可以让定义确定下来
+            std::stringstream ss;
+            for(size_t i  = 0; i< node.size(); ++i){
+                ss.str("");
+                ss<<node[i];
+                vec.insert(LexicalCast<std::string, T>()(ss.str()));
+            }
+            return vec;
+        }
+};
+
+template<class T>
+class LexicalCast<std::set<T>, std::string>{
+    public:
+        std::string operator()(const std::set<T>& v){
+            YAML::Node node;
+            for(auto& i:v){
+                node.push_back(YAML::Load(LexicalCast<T,std::string>()(i)));
+
+            }
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
+        }
+};
 //FromStr T operator() (const std::string&)
 //ToStr std::string operator() (const T&)
 template<class T, class FromStr = LexicalCast<std::string, T>
