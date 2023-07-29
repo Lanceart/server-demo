@@ -8,7 +8,7 @@ coolserver::ConfigVar<std::vector<int> >::ptr g_int_vec_value_config =
     coolserver::Config::Lookup("system.int_vec", std::vector<int>{1,2}, "system int vec");
 
 coolserver::ConfigVar<std::list<int> >::ptr g_int_list_value_config =
-    coolserver::Config::Lookup("system.int_vec", std::list<int>{1,2}, "system int vec");
+    coolserver::Config::Lookup("system.list_vec", std::list<int>{10,20}, "system int vec");
 
 void print_yaml(const YAML::Node& node, int level) {
     if(node.IsScalar()) {
