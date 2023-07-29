@@ -24,3 +24,9 @@ system:
     str_int_map:
         k: 30
         k2: 60
+
+class:
+    employee:
+        name: cyan
+        age: 23
+        univeristy: university of california riverside
