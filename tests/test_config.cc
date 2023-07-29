@@ -52,15 +52,15 @@ void test_config() {
     }
 
     XX(g_int_list_value_config,int_list, before);
-
+    XX(g_int_vec_value_config,int_vec, before);
+    
     YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
     coolserver::Config::LoadFromYaml(root);
     print_yaml(root,0);
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "after: " << g_int_value_config->getValue();
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "after: " << g_int_value_config->toString();
 
-
-
+    XX(g_int_vec_value_config,int_vec, after);
     XX(g_int_list_value_config,int_list, after);
 
 }
