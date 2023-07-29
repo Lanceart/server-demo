@@ -72,7 +72,7 @@ void test_config() {
     XX(g_int_list_value_config,int_list, before);
     XX(g_int_vec_value_config,int_vec, before);
     XX(g_int_set_value_config,set_list, before);
-    XX(g_int_map_value_config,set_list, before);
+    XX(g_int_map_value_config,str_int_map, before);
 
     YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
     coolserver::Config::LoadFromYaml(root);
