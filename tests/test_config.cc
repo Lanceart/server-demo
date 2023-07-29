@@ -4,7 +4,7 @@
 coolserver::ConfigVar<int>::ptr g_int_value_config =
     coolserver::Config::Lookup("system.port", (int)8080, "system port");
 
-coolserver::ConfigVar<int>::ptr g_int_vec_value_config =
+coolserver::ConfigVar<std::vector<int> >::ptr g_int_vec_value_config =
     coolserver::Config::Lookup("system.int_vec", std::vector<int>{1,2}, "system int vec");
 
 void print_yaml(const YAML::Node& node, int level) {
@@ -44,6 +44,12 @@ void test_config() {
     print_yaml(root,0);
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "after: " << g_int_value_config->getValue();
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "after: " << g_int_value_config->toString();
+
+
+    auto v = g_int_vec_value_config->getValue();
+    for(auto& i : v){
+        COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "int_vec: " << i;
+    }
 }
 int main(int argc, char** argv){
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << g_int_value_config -> getValue();
