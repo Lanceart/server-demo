@@ -214,6 +214,38 @@ class LexicalCast<std::map<std::string, T>, std::string >{
         }
 };
 
+template<class T>
+class LexicalCast<std::string, std::unordered_map<std::string, T> >{
+    public:
+        std::unordered_map<std::string , T> operator()(const std::string& v){
+            YAML::Node node = YAML::Load(v);
+            typename std::unordered_map<std::string , T>  vec;
+            //模板在实例化之前并不知道std::unordered_set<T>是什么东西，使用typename可以让定义确定下来
+            std::stringstream ss;
+            for(auto it  = node.begin(); it != node.end(); ++it){
+                ss.str("");
+                ss<< it->second;
+                vec.insert(std::make_pair(it->first.Scalar(),
+                        LexicalCast<std::string, T>()(ss.str())));
+            }
+            return vec;
+        }
+};
+
+template<class T>
+class LexicalCast<std::unordered_map<std::string, T>, std::string >{
+    public:
+        std::string operator()(const std::unordered_map<std::string, T>& v){
+            YAML::Node node;
+            for(auto& i:v){
+                node[i.first] = YAML::Load(LexicalCast<T, std::string>()(i.second));
+            }
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
+        }
+};
+
 //FromStr T operator() (const std::string&)
 //ToStr std::string operator() (const T&)
 template<class T, class FromStr = LexicalCast<std::string, T>
@@ -260,7 +292,7 @@ class ConfigVar : public ConfigVarBase{
 
 class Config{
     public:
-        typedef std::map<std::string, ConfigVarBase::ptr> ConfigVarMap;
+        typedef std::unordered_map<std::string, ConfigVarBase::ptr> ConfigVarMap;
 
         template<class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string& name,
