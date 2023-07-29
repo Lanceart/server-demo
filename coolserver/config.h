@@ -29,9 +29,19 @@ class ConfigVarBase{
         std::string m_description;
 };
 
+template<class T, class F& v>
+class BasicFromStringCast{
+    public:
+        T operator() (const F& v){
+            return boost::lexical_cast<T>(v);
+        }
+}
+
+
 //FromStr T operator() (const std::string&)
 //ToStr std::string operator() (const T&)
-template<class T, class FromStr, class ToStr>
+template<class T, class FromStr = LexicalCast<std::string, T> ,
+        class ToStr = LexicalCast<T, std::string> >
 class ConfigVar : public ConfigVarBase{
     public:
         typedef std::shared_ptr<ConfigVar> ptr;
