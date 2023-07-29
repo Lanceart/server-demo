@@ -7,6 +7,9 @@ coolserver::ConfigVar<int>::ptr g_int_value_config =
 coolserver::ConfigVar<std::vector<int> >::ptr g_int_vec_value_config =
     coolserver::Config::Lookup("system.int_vec", std::vector<int>{1,2}, "system int vec");
 
+coolserver::ConfigVar<std::list<int> >::ptr g_int_list_value_config =
+    coolserver::Config::Lookup("system.int_vec", std::list<int>{1,2}, "system int vec");
+
 void print_yaml(const YAML::Node& node, int level) {
     if(node.IsScalar()) {
         COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')
@@ -39,6 +42,17 @@ void test_yaml(){
 void test_config() {
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "before: " << g_int_value_config->getValue();
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "before: " << g_int_value_config->toString();
+
+#define XX(g_var, name, prefix) \
+    { \
+        auto& v = g_var->getValue(); \
+        for(auto& i : v){ \
+            COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<  #prefix " " #name ": " << i; \
+        } \
+    }
+
+    XX(g_int_list_value_config,int_list, before);
+
     YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
     coolserver::Config::LoadFromYaml(root);
     print_yaml(root,0);
@@ -46,10 +60,9 @@ void test_config() {
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "after: " << g_int_value_config->toString();
 
 
-    auto v = g_int_vec_value_config->getValue();
-    for(auto& i : v){
-        COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "int_vec: " << i;
-    }
+
+    XX(g_int_list_value_config,int_list, after);
+
 }
 int main(int argc, char** argv){
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << g_int_value_config -> getValue();
