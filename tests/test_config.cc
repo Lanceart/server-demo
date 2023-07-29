@@ -94,9 +94,9 @@ void test_config() {
 class Resume{
     public:
         Resume(){};
-        std::string m_name = "";
+        std::string m_name;
         int m_age = 0;
-        std::string m_university = "";
+        std::string m_university;
 
         std::string toString() const{
             std::stringstream ss;
