@@ -90,6 +90,60 @@ void test_config() {
     XX_M(g_int_map_value_config,str_int_map, after);
 
 }
+
+class Resume{
+    public:
+        std::string m_name = 0;
+        int m_age = 0;
+        std::string m_university = 0;
+
+        std::string toString() const{
+            std::stringstream ss;
+            ss <<"[Employee name: " <<m_name
+                <<"age: " << m_age
+                <<"graduate from: " << m_university << "]";
+            return ss.str();
+        }
+};
+namespace coolserver{
+        template<class T>
+        class LexicalCast<std::string, Resume>{
+            public:
+                Resume operator()(const std::string& v){
+                    YAML::Node node = YAML::Load(v);
+                    Resume r;
+                    r.m_name = node["name"].as<std::string>();
+                    r.m_name = node["age"].as<int>();
+                    r.m_name = node["university"].as<std::string>();
+                    return r;
+                }
+        };
+
+        template<class T>
+        class LexicalCast<std::string, std::list<T> >{
+            public:
+                std::list<T> operator()(const Resume& p){
+                    YAML::Node node;
+                    node["name"] = p.m_name;
+                    node["age"] = p.m_age;
+                    node["university"] = p.university;
+                    std::stringstream ss;
+                    ss << node;
+
+                    return ss.str();
+                }
+        };
+}
+coolserver::ConfigVar<Resume>::ptr g_employee =
+        coolserver::Config::Lookup("class.employee", Resume(), "system port");
+        
+
+void test_class(){ //test should accept all kinds all input class type
+    COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"before: "<< g_employee->getValue().toString() < " - " << g_person->toString();
+    YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
+    coolserver::Config::LoadFromYaml(root);
+    COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"after: " << g_employee->getValue().toString() < " - " << g_person->toString();
+}
 int main(int argc, char** argv){
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << g_int_value_config -> getValue();
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << g_int_value_config -> toString();
