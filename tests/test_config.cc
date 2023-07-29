@@ -120,7 +120,7 @@ namespace coolserver{
         };
 
         template<>
-        class LexicalCast<std::string, std::list<T> >{
+        class LexicalCast<Resume, std::string >{
             public:
                 std::string operator()(const Resume& p){
                     YAML::Node node;
