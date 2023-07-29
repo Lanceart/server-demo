@@ -31,7 +31,7 @@ class ConfigVarBase{
 
         virtual std::string toString() = 0;
         virtual bool fromString(const std::string& val) = 0;
-        std::string getTypeName() const = 0;
+        virtual std::string getTypeName() const = 0;
     protected:
         std::string m_name;
         std::string m_description;
@@ -305,7 +305,7 @@ class Config{
                     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "Lookup name" << name << "exists";
                     return tmp;
                 } else{
-                    COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT) << "Lookup name" << name << "exists but type not " 
+                    COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT()) << "Lookup name" << name << "exists but type not " 
                             << typeid(T).name() << "real_type=" <<it->second->getTypeName() << " " << it->second->toString();
                     return nullptr;
                 }           
