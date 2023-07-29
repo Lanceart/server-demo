@@ -126,7 +126,7 @@ namespace coolserver{
                     YAML::Node node;
                     node["name"] = p.m_name;
                     node["age"] = p.m_age;
-                    node["university"] = p.university;
+                    node["university"] = p.m_university;
                     std::stringstream ss;
                     ss << node;
 
