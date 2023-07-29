@@ -4,6 +4,9 @@
 coolserver::ConfigVar<int>::ptr g_int_value_config =
     coolserver::Config::Lookup("system.port", (int)8080, "system port");
 
+coolserver::ConfigVar<int>::ptr g_int_vec_value_config =
+    coolserver::Config::Lookup("system.int_vec", std::vector<int>{1,2}, "system int vec");
+
 void print_yaml(const YAML::Node& node, int level) {
     if(node.IsScalar()) {
         COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << std::string(level * 4, ' ')

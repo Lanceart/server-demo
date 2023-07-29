@@ -38,6 +38,44 @@ class LexicalCast{
         }
 };
 
+template<class T>
+class LexicalCast<std::string, std::vector<T> >{
+    public:
+        std::vector<T> operator()(const std::string& v){
+            YAML::Node node = YAML::Load(v);
+            typename std::vector<T> vec;
+            //模板在实例化之前并不知道std::vector<T>是什么东西，使用typename可以让定义确定下来
+            std::stringstream ss;
+            for(size_t i  = 0; i< node.size(); ++i){
+                ss.str("");
+                ss<<node[i];
+                vec.push_back(LexicalCast<std::string, T>()(ss.str()));
+                '''
+                
+                vec.push_back(typename LexicalCast<std::string, T>()(ss.str()));
+                typename 关键字可能是多余的。在这个上下文中，LexicalCast<std::string, T> 明确地是一个类型，所以您不需要使用 typename 关键字。
+
+                如果尝试使用 typename，编译器可能会产生一个错误，因为在这种情况下，它是不必要的。
+                '''
+            }
+            return vec;
+        }
+};
+
+template<class T>
+class LexicalCast<std::vector<T>, std::string >{
+    public:
+        std::string operator()(const std::vector<T>& v){
+            YAML::Node node;
+            for(auto& i:v){
+                node.push_back(YAML::Load(LexicalCast<T,std::string>()(i)));
+
+            }
+            std::stringstream ss;
+            ss << node;
+            return ss.str();
+        }
+};
 
 //FromStr T operator() (const std::string&)
 //ToStr std::string operator() (const T&)
