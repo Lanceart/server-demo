@@ -279,7 +279,7 @@ class ConfigVar : public ConfigVarBase{
                 // m_val = boost::lexical_cast<T>(val);
                 setValue(FromStr()(val));
             }catch(std::exception& e){
-                COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT()) <<"ConfigVar::fromString exception"
+                COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT()) <<"ConfigVar::fromString exception "
                     << e.what() << "convert: string to " <<typeid(m_val).name();
             } return false;
         }
