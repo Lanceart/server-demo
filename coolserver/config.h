@@ -31,7 +31,7 @@ class ConfigVarBase{
 
         virtual std::string toString() = 0;
         virtual bool fromString(const std::string& val) = 0;
-
+        std::string getTypeName() const = 0;
     protected:
         std::string m_name;
         std::string m_description;
@@ -285,7 +285,7 @@ class ConfigVar : public ConfigVarBase{
 
         const T getValue() const {return m_val;}
         void setValue(const T& v){m_val = v;}
-
+        std::string getTypeName() const override {return typeid(T).name();}
     private:
         T m_val;
 };
@@ -297,10 +297,18 @@ class Config{
         template<class T>
         static typename ConfigVar<T>::ptr Lookup(const std::string& name,
                 const T& default_value, const std::string& description = ""){
-            auto tmp = Lookup<T>(name);
-            if(tmp){
-                COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "Lookup name" << name << "exists";
-                return tmp;
+            
+            auto it = s_datas.find(name);
+            if(it != s_datas.end()){
+                auto tmp = Lookup<T>(name);
+                if(tmp){
+                    COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "Lookup name" << name << "exists";
+                    return tmp;
+                } else{
+                    COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT) << "Lookup name" << name << "exists but type not " 
+                            << typeid(T).name() << "real_type=" <<it->second->getTypeName() << " " << it->second->toString();
+                    return nullptr;
+                }           
             }
 
             if(name.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ._0123456789")
