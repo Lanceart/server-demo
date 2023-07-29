@@ -4,6 +4,9 @@
 coolserver::ConfigVar<int>::ptr g_int_value_config =
     coolserver::Config::Lookup("system.port", (int)8080, "system port");
 
+coolserver::ConfigVar<std::string>::ptr g_int_valuex_config =
+    coolserver::Config::Lookup("system.port", (std::string)8080, "system port");
+
 coolserver::ConfigVar<std::vector<int> >::ptr g_int_vec_value_config =
     coolserver::Config::Lookup("system.int_vec", std::vector<int>{1,2}, "system int vec");
 
@@ -16,8 +19,7 @@ coolserver::ConfigVar<std::set<int> >::ptr g_int_set_value_config =
 coolserver::ConfigVar<std::map<std::string,int> >::ptr g_int_map_value_config =
     coolserver::Config::Lookup("system.str_int_map", std::map<std::string, int>{{"hello",20}}, "system int vec");
 
-coolserver::ConfigVar<std::vector<int> >::ptr g_int_vec_error_value_config =
-    coolserver::Config::Lookup("system.int_vec_error", std::vector<int>{1,2}, "system int vec");
+
 
 void print_yaml(const YAML::Node& node, int level) {
     if(node.IsScalar()) {
