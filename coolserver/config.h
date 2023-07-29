@@ -29,7 +29,9 @@ class ConfigVarBase{
         std::string m_description;
 };
 
-template<class T>
+//FromStr T operator() (const std::string&)
+//ToStr std::string operator() (const T&)
+template<class T, class FromStr, class ToStr>
 class ConfigVar : public ConfigVarBase{
     public:
         typedef std::shared_ptr<ConfigVar> ptr;
@@ -45,7 +47,8 @@ class ConfigVar : public ConfigVarBase{
 
         std::string toString() override{
             try{
-                return boost::lexical_cast<std::string>(m_val);
+                // return boost::lexical_cast<std::string>(m_val);
+                return ToStr()(m_val);//ToStr()(m_val) creates a temporary ToStr object and then immediately calls its operator() method with m_val as the argument.
             }catch(std::exception& e){
                 COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT()) <<"ConfigVar::toString exception"
                     << e.what() << "convert: " <<typeid(m_val).name() << "to string";
@@ -54,7 +57,8 @@ class ConfigVar : public ConfigVarBase{
         
         bool fromString(const std::string& val) override{
             try{
-                m_val = boost::lexical_cast<T>(val);
+                // m_val = boost::lexical_cast<T>(val);
+                setValue(FromStr()(val));
             }catch(std::exception& e){
                 COOLSERVER_LOG_ERROR(COOLSERVER_LOG_ROOT()) <<"ConfigVar::fromString exception"
                     << e.what() << "convert: string to " <<typeid(m_val).name();
