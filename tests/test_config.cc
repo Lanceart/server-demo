@@ -4,8 +4,8 @@
 coolserver::ConfigVar<int>::ptr g_int_value_config =
     coolserver::Config::Lookup("system.port", (int)8080, "system port");
 
-coolserver::ConfigVar<std::string>::ptr g_int_valuex_config =
-    coolserver::Config::Lookup("system.port", (std::string)8080, "system port");
+coolserver::ConfigVar<float>::ptr g_int_valuex_config =
+    coolserver::Config::Lookup("system.port", (float)8080, "system port");
 
 coolserver::ConfigVar<std::vector<int> >::ptr g_int_vec_value_config =
     coolserver::Config::Lookup("system.int_vec", std::vector<int>{1,2}, "system int vec");
