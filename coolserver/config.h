@@ -246,33 +246,6 @@ class LexicalCast<std::unordered_map<std::string, T>, std::string >{
         }
 };
 
-template<>
-        class LexicalCast<std::string, Resume>{
-            public:
-                Resume operator()(const std::string& v){
-                    YAML::Node node = YAML::Load(v);
-                    Resume r;
-                    r.m_name = node["name"].as<std::string>();
-                    r.m_name = node["age"].as<int>();
-                    r.m_name = node["university"].as<std::string>();
-                    return r;
-                }
-        };
-
-        template<>
-        class LexicalCast<Resume, std::string >{
-            public:
-                std::string operator()(const Resume& p){
-                    YAML::Node node;
-                    node["name"] = p.m_name;
-                    node["age"] = p.m_age;
-                    node["university"] = p.m_university;
-                    std::stringstream ss;
-                    ss << node;
-
-                    return ss.str();
-                }
-        };
 
 //FromStr T operator() (const std::string&)
 //ToStr std::string operator() (const T&)
