@@ -12,6 +12,9 @@ coolserver::ConfigVar<std::list<int> >::ptr g_int_list_value_config =
     
 coolserver::ConfigVar<std::set<int> >::ptr g_int_set_value_config =
     coolserver::Config::Lookup("system.set_vec", std::set<int>{10,20}, "system int vec");
+
+coolserver::ConfigVar<std::map<std::string,int> >::ptr g_int_map_value_config =
+    coolserver::Config::Lookup("system.str_int_map", std::map<std::string, int>{{"hello",20}}, "system int vec");
     
 
 void print_yaml(const YAML::Node& node, int level) {
@@ -56,9 +59,20 @@ void test_config() {
         COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << #prefix " " #name " yaml: " <<g_var->toString(); \
     }
 
+#define XX(g_var, name, prefix) \
+    { \
+        auto& v = g_var->getValue(); \
+        for(auto& i : v){ \
+            COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<  #prefix " " #name ": {"  \
+                    << i.first << " - " <<i.second << "}"; \
+        } \
+        COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << #prefix " " #name " yaml: " <<g_var->toString(); \
+    }
+
     XX(g_int_list_value_config,int_list, before);
     XX(g_int_vec_value_config,int_vec, before);
     XX(g_int_set_value_config,set_list, before);
+    XX(g_int_map_value_config,set_list, before);
 
     YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
     coolserver::Config::LoadFromYaml(root);
@@ -69,6 +83,7 @@ void test_config() {
     XX(g_int_vec_value_config,int_vec, after);
     XX(g_int_list_value_config,int_list, after);
     XX(g_int_set_value_config,set_list, after);
+    XX(g_int_map_value_config,map_string_int, after);
 
 }
 int main(int argc, char** argv){
