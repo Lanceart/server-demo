@@ -193,7 +193,8 @@ class LexicalCast<std::string, std::map<std::string, T> >{
             for(auto it  = node.begin(); it != node.end(); ++it){
                 ss.str("");
                 ss<< it->second;
-                vec.insert(LexicalCast<std::string, T>()(ss.str()));
+                vec.insert(std::make_pair(it->first.Scalar(),
+                        LexicalCast<std::string, T>()(ss.str())));
             }
             return vec;
         }
