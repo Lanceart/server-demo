@@ -106,7 +106,7 @@ class Resume{
         }
 };
 namespace coolserver{
-        template<class T>
+        template<>
         class LexicalCast<std::string, Resume>{
             public:
                 Resume operator()(const std::string& v){
@@ -119,10 +119,10 @@ namespace coolserver{
                 }
         };
 
-        template<class T>
+        template<>
         class LexicalCast<std::string, std::list<T> >{
             public:
-                std::list<T> operator()(const Resume& p){
+                std::string operator()(const Resume& p){
                     YAML::Node node;
                     node["name"] = p.m_name;
                     node["age"] = p.m_age;
