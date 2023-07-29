@@ -29,10 +29,11 @@ class ConfigVarBase{
         std::string m_description;
 };
 
-template<class T, class F& v>
+//from type f to T type
+template<class T, class T>
 class LexicalCast{
     public:
-        T operator() (const F& v){
+        T operator()(const F& v){
             return boost::lexical_cast<T>(v);
         }
 };
