@@ -50,13 +50,11 @@ class LexicalCast<std::string, std::vector<T> >{
                 ss.str("");
                 ss<<node[i];
                 vec.push_back(LexicalCast<std::string, T>()(ss.str()));
-                '''
-                
+                /***
                 vec.push_back(typename LexicalCast<std::string, T>()(ss.str()));
                 typename 关键字可能是多余的。在这个上下文中，LexicalCast<std::string, T> 明确地是一个类型，所以您不需要使用 typename 关键字。
-
                 如果尝试使用 typename，编译器可能会产生一个错误，因为在这种情况下，它是不必要的。
-                '''
+                ***/
             }
             return vec;
         }
