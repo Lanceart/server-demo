@@ -61,7 +61,7 @@ class LexicalCast<std::string, std::vector<T> >{
 };
 
 template<class T>
-class LexicalCast<std::vector<T>, std::string >{
+class LexicalCast<std::vector<T>, std::string>{
     public:
         std::string operator()(const std::vector<T>& v){
             YAML::Node node;
