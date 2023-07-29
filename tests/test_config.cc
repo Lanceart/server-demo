@@ -114,8 +114,8 @@ namespace coolserver{
                     YAML::Node node = YAML::Load(v);
                     Resume r;
                     r.m_name = node["name"].as<std::string>();
-                    r.m_name = node["age"].as<int>();
-                    r.m_name = node["university"].as<std::string>();
+                    r.m_age = node["age"].as<int>();
+                    r.m_university = node["university"].as<std::string>();
                     return r;
                 }
         };
