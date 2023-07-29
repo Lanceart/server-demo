@@ -30,7 +30,7 @@ class ConfigVarBase{
 };
 
 //from type f to T type
-template<class T, class T>
+template<class F, class T>
 class LexicalCast{
     public:
         T operator()(const F& v){
