@@ -141,8 +141,8 @@ coolserver::ConfigVar<Resume>::ptr g_employee =
 
 void test_class(){ //test should accept all kinds all input class type
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"before: "<< g_employee->getValue().toString() << " - " << g_employee->toString();
-    YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
-    coolserver::Config::LoadFromYaml(root);
+    // YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
+    // coolserver::Config::LoadFromYaml(root);
     // COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"after: " << g_employee->getValue().toString() << " - " << g_employee->toString();
 }
 int main(int argc, char** argv){
