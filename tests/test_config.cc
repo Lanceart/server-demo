@@ -136,7 +136,7 @@ namespace coolserver{
         };
 }
 coolserver::ConfigVar<Resume>::ptr g_employee =
-        coolserver::Config::Lookup("class.employee", Resume(), "system port");
+        coolserver::Config::Lookup("class.resume", Resume(), "system port");
         
 
 void test_class(){ //test should accept all kinds all input class type
