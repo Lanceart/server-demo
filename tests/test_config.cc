@@ -159,7 +159,7 @@ void test_class(){ //test should accept all kinds all input class type
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"before: " << g_person->getValue().toString() << " - " << g_person->toString();
 
     g_person->addListener([](const Person& old_value, const Person& new_value){
-            SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "old_value=" << old_value.toString()
+            COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << "old_value=" << old_value.toString()
                     << " new_value=" << new_value.toString();
         });
 
