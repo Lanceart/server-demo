@@ -26,7 +26,7 @@ system:
         k2: 60
 
 class:
-    employee:
+    resume:
         name: cyan
         age: 23
         univeristy: ucr
