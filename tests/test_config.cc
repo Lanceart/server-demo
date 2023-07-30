@@ -80,6 +80,13 @@ void test_config() {
     XX(g_int_set_value_config,set_list, before);
     XX_M(g_int_map_value_config,str_int_map, before);
 
+
+    g_person->addListener([](const Person& old_value, const Person& new_value){
+            SYLAR_LOG_INFO(SYLAR_LOG_ROOT()) << "old_value=" << old_value.toString()
+                    << " new_value=" << new_value.toString();
+        });
+
+
     YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
     coolserver::Config::LoadFromYaml(root);
     // print_yaml(root,0);
