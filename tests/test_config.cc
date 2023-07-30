@@ -116,7 +116,7 @@ public:
     }
 };
 
-namespace sylar {
+namespace coolserver {
 
 template<>
 class LexicalCast<std::string, Person> {
