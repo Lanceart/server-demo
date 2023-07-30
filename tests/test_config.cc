@@ -91,59 +91,69 @@ void test_config() {
 
 }
 
-class Resume{
-    public:
-        Resume(){};
-        std::string m_name;
-        int m_age = 0;
-        std::string m_university;
+class Person {
+public:
+    Person() {};
+    std::string m_name;
+    int m_age = 0;
+    bool m_sex = 0;
 
-        std::string toString() const{
-            std::stringstream ss;
-            ss <<"[Employee name: " <<m_name
-                <<"age: " << m_age
-                <<"graduate from: " << m_university << "]";
-            return ss.str();
-        }
+    std::string toString() const {
+        std::stringstream ss;
+        ss << "[Person name=" << m_name
+           << " age=" << m_age
+           << " sex=" << m_sex
+           << "]";
+        return ss.str();
+    }
+
+    bool operator==(const Person& oth) const {
+        return m_name == oth.m_name
+            && m_age == oth.m_age
+            && m_sex == oth.m_sex;
+    }
 };
-namespace coolserver{
-        template<>
-        class LexicalCast<std::string, Resume>{
-            public:
-                Resume operator()(const std::string& v){
-                    YAML::Node node = YAML::Load(v);
-                    Resume r;
-                    r.m_name = node["name"].as<std::string>();
-                    r.m_age = node["age"].as<int>();
-                    r.m_university = node["university"].as<std::string>();
-                    return r;
-                }
-        };
 
-        template<>
-        class LexicalCast<Resume, std::string >{
-            public:
-                std::string operator()(const Resume& p){
-                    YAML::Node node;
-                    node["name"] = p.m_name;
-                    node["age"] = p.m_age;
-                    node["university"] = p.m_university;
-                    std::stringstream ss;
-                    ss << node;
+namespace sylar {
 
-                    return ss.str();
-                }
-        };
+template<>
+class LexicalCast<std::string, Person> {
+public:
+    Person operator()(const std::string& v) {
+        YAML::Node node = YAML::Load(v);
+        Person p;
+        p.m_name = node["name"].as<std::string>();
+        p.m_age = node["age"].as<int>();
+        p.m_sex = node["sex"].as<bool>();
+        return p;
+    }
+};
+
+template<>
+class LexicalCast<Person, std::string> {
+public:
+    std::string operator()(const Person& p) {
+        YAML::Node node;
+        node["name"] = p.m_name;
+        node["age"] = p.m_age;
+        node["sex"] = p.m_sex;
+        std::stringstream ss;
+        ss << node;
+        return ss.str();
+    }
+};
+
 }
-coolserver::ConfigVar<Resume>::ptr g_employee =
-        coolserver::Config::Lookup("class.resume", Resume(), "system port");
+
+coolserver::ConfigVar<Person>::ptr g_person =
+        coolserver::Config::Lookup("class.person", Person(), "system person");
         
 
 void test_class(){ //test should accept all kinds all input class type
-    COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"before: "<< g_employee->getValue().toString() << " - " << g_employee->toString();
-    YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
-    coolserver::Config::LoadFromYaml(root);
-    COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"after: " << g_employee->getValue().toString() << " - " << g_employee->toString();
+    COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"before: " << g_person->getValue().toString() << " - " << g_person->toString();
+    // YAML::Node root = YAML::LoadFile("/home/lance/Desktop/server-demo/bin/conf/log.yml");
+    // coolserver::Config::LoadFromYaml(root);
+    // COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) <<"after: " << g_employee->getValue().toString() << " - " << g_employee->toString();
 }
 int main(int argc, char** argv){
     COOLSERVER_LOG_INFO(COOLSERVER_LOG_ROOT()) << g_int_value_config -> getValue();
