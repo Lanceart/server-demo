@@ -19,6 +19,22 @@ sstream
 -
 boost/lexical_cast.hpp
 -
+yaml-cpp/yaml.h
+-
+vector
+-
+list
+-
+map
+-
+set
+-
+unordered_map
+-
+unordered_set
+-
+functional
+-
 log.h
 /home/lance/Desktop/server-demo/coolserver/log.h
 

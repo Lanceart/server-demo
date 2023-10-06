@@ -1,0 +1,3 @@
+2023-10-03 23:32:02	3316	0	[INFO]	[root]	/home/lance/Desktop/server-demo/tests/test.cc:17	tests mircal 
+2023-10-03 23:32:02	3316	0	[ERROR]	[root]	/home/lance/Desktop/server-demo/tests/test.cc:18	opps a error 
+2023-10-03 23:32:02	3316	0	[ERROR]	[root]	/home/lance/Desktop/server-demo/tests/test.cc:20	test fmt error aa 

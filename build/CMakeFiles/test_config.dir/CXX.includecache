@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/lance/Desktop/server-demo/coolserver/config.h
+../coolserver/config.h
 memory
 -
 string
@@ -15,10 +15,26 @@ sstream
 -
 boost/lexical_cast.hpp
 -
+yaml-cpp/yaml.h
+-
+vector
+-
+list
+-
+map
+-
+set
+-
+unordered_map
+-
+unordered_set
+-
+functional
+-
 log.h
-/home/lance/Desktop/server-demo/coolserver/log.h
+../coolserver/log.h
 
-/home/lance/Desktop/server-demo/coolserver/log.h
+../coolserver/log.h
 string
 -
 stdint.h
@@ -40,13 +56,13 @@ map
 utility
 -
 util.h
-/home/lance/Desktop/server-demo/coolserver/util.h
+../coolserver/util.h
 singleton.h
-/home/lance/Desktop/server-demo/coolserver/singleton.h
+../coolserver/singleton.h
 
-/home/lance/Desktop/server-demo/coolserver/singleton.h
+../coolserver/singleton.h
 
-/home/lance/Desktop/server-demo/coolserver/util.h
+../coolserver/util.h
 unistd.h
 -
 pthread.h
@@ -61,10 +77,12 @@ stdint.h
 -
 
 /home/lance/Desktop/server-demo/tests/test_config.cc
-../coolserver/config.h
-/home/lance/Desktop/server-demo/coolserver/config.h
-../coolserver/log.h
-/home/lance/Desktop/server-demo/coolserver/log.h
+coolserver/config.h
+/home/lance/Desktop/server-demo/tests/coolserver/config.h
+coolserver/log.h
+/home/lance/Desktop/server-demo/tests/coolserver/log.h
 yaml-cpp/yaml.h
+-
+iostream
 -
 
